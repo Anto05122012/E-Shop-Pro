@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Atugatran/FontAwesome6Pro@latest/css/all.min.css">
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1f1f1f, #353535);
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            animation: fadeInUp 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2; /* thêm dòng này */
+        }
+
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #222;
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: var(--font-main);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            width: 100%;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .btn-login, .btn-google {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.75rem;
+        }
+
+        .btn-login {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .btn-login:hover {
+            color: white;
+            background-color: #333;
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+
+        .btn-google {
+            background-color: #004984;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+        }
+
+        .btn-google:hover {
+            color: white;
+            background-color: #013b6b;
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-google:active {
+            transform: scale(0.98);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .login-footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        #login-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            background: #000;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .loading-icon img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            /* border: 3px solid white; */
+            animation: bounce 1.2s infinite;
+            object-fit: cover;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes flyOut {
+            to {
+                transform: translateY(-100vh) scale(0.5) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="login-loading" style="display: none;">
+        <div class="loading-icon">
+          <img id="loading-avatar" src="" alt="Đang vào..." />
+        </div>
+      </div>
+    <video autoplay muted loop id="background-video">
+        <source src="../img/Topographic Textures ｜ After Effects ｜ Topographic Design ｜ Topographic Map  ｜ Background hd.mp4" type="video/mp4">
+    </video>    
+
+    <div class="login-container">
+        <h2 class="login-title">Chào mừng trở lại</h2>
+        <form id="loginForm" style="width: 100%;">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Nhập email của bạn" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu của bạn" required>
+            </div>
+            <button type="submit" class="btn btn-login">Đăng Nhập</button>
+        </form>
+        <button class="btn btn-google" id="google-login-btn">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Icon"> Đăng Nhập với Google
+        </button>
+        <div class="login-footer">
+            Bạn chưa có tài khoản? <a href="./register.html">Đăng ký</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyDY3ODDfn--5iMZo_6Rm1C43SH0dxt7oLE",
+            authDomain: "spck-f740c.firebaseapp.com",
+            projectId: "spck-f740c",
+            storageBucket: "spck-f740c.firebasestorage.app",
+            messagingSenderId: "299529294108",
+            appId: "1:299529294108:web:b66bf6a7c1dda18eb72ad9",
+            measurementId: "G-MWFNEGJV7V"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+    
+        const form = document.getElementById("loginForm");
+        const googleBtn = document.getElementById("google-login-btn");
+    
+        function showLoadingAndRedirect(photoURL) {
+            const loading = document.getElementById('login-loading');
+            const avatar = document.getElementById('loading-avatar');
+    
+            avatar.src = photoURL || "https://i.imgur.com/DiHM5Zb.png";
+            loading.style.display = "flex";
+    
+            setTimeout(() => {
+                avatar.style.animation = "none";
+                avatar.style.animation = "flyOut 1s ease forwards";
+    
+                setTimeout(() => {
+                    window.location.href = "./index.html";
+                }, 1000);
+            }, 1000);
+        }
+    
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = form.email.value;
+            const password = form.password.value;
+    
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                localStorage.setItem('currentUser', JSON.stringify({
+                email: user.email,
+                uid: user.uid,
+                displayName: user.displayName || "",
+                photoURL: user.photoURL || "./img/default-avatar.png",
+                provider: "password"
+                }));
+                showLoadingAndRedirect(user.photoURL);
+            })
+            .catch((error) => {
+                alert("Sai tài khoản hoặc mật khẩu");
+                console.error(error);
+            });
+
+        });
+    
+        googleBtn.addEventListener("click", () => {
+            const provider = new GoogleAuthProvider();
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                const user = result.user;
+                localStorage.setItem('currentUser', JSON.stringify({
+                    email: user.email,
+                    uid: user.uid,
+                    displayName: user.displayName || "",
+                    photoURL: user.photoURL || "./img/default-avatar.png",
+                    provider: "google"
+                }));
+                showLoadingAndRedirect(user.photoURL);
+                })
+                .catch((error) => {
+                alert("Lỗi đăng nhập Google: " + error.message);
+                });
+            });
+
+    </script>
+    
+</body>
+</html>

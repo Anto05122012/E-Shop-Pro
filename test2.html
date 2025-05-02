@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stacking Ultra Tight</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .stacking-section {
+      height: 400vh;
+      position: relative;
+      background: #fff;
+    }
+
+    .stack-wrapper {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .stack-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transform: translateY(150vh);
+      margin-bottom: -50px;
+    }
+
+    .stack-item .icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .stack-item .text {
+      font-size: 110px;
+      line-height: 1;
+    }
+
+    .stack-item.add .icon {
+      background: #00C853;
+    }
+
+    .stack-item.add .text {
+      color: #00C853;
+    }
+
+    .stack-item.send .icon {
+      background: #2979FF;
+    }
+
+    .stack-item.send .text {
+      color: #2979FF;
+    }
+
+    .stack-item.exchange .icon {
+      background: #FF1744;
+    }
+
+    .stack-item.exchange .text {
+      color: #FF1744;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="stacking-section">
+    <div class="stack-wrapper">
+      <div class="stack-item add">
+        <div class="icon"><i class="fa-solid fa-plus"></i></div>
+        <div class="text">Add</div>
+      </div>
+      <div class="stack-item send">
+        <div class="icon"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="text">Send</div>
+      </div>
+      <div class="stack-item exchange">
+        <div class="icon"><i class="fa-solid fa-right-left"></i></div>
+        <div class="text">Exchange</div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.21/bundled/lenis.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      smooth: true,
+      lerp: 0.1
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const items = gsap.utils.toArray(".stack-item");
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".stacking-section",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        pin: ".stack-wrapper"
+      }
+    });
+
+    items.forEach((el, i) => {
+      tl.to(el, {
+        y: i * 60,
+        duration: 1,
+        ease: "power3.out"
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Giỏ Hàng</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    body {
+      background: #181818;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 50px;
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: #222;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+    }
+
+    .cart-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #333;
+    }
+
+    .cart-info {
+      flex: 1;
+    }
+
+    .cart-info h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .cart-info p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #aaa;
+      margin-top: 80px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="fade-navbar navbar">
+    <div class="navbar-container">
+      <a class="brand" href="#">E-Shop Pro</a>
+      <div class="burger" id="burger-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="./index.html">Trang chủ</a></li>
+        <li><a href="#">Sản phẩm</a></li>
+        <li><a href="./cart.html">Giỏ hàng</a></li>
+      </ul>
+    </div>
+  </nav>
+  <h1>🛒 Giỏ Hàng của Bạn</h1>
+  <div id="cart-container" style="max-width:800px;margin:30px auto;padding:20px;"></div>
+
+  <script src="./js/product.js"></script>
+  <script src="./js/cart.js"></script>
+</body>
+</html>

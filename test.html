@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floating Cards & Stacking Fly-Up</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000000;
+      color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .floating-hero {
+      height: 300vh;
+      position: relative;
+    }
+
+    .content-wrapper {
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .float-title {
+      font-size: 100px;
+      font-weight: 900;
+      z-index: 1;
+      margin-bottom: 30px;
+      transform-origin: center;
+      color: white;
+    }
+
+    .card {
+      width: 200px;
+      height: 200px;
+      border-radius: 30px;
+      overflow: hidden;
+      position: absolute;
+      transform-origin: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .fly-up-section {
+      height: 300vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 80px;
+      position: relative;
+      background: #fff;
+    }
+
+    .fly-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(100px);
+    }
+
+    .fly-item .icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .fly-item .text {
+      font-size: 72px;
+      font-weight: bold;
+    }
+
+    .fly-item.add .icon {
+      background: #00C853;
+    }
+
+    .fly-item.add .text {
+      color: #00C853;
+    }
+
+    .fly-item.send .icon {
+      background: #2979FF;
+    }
+
+    .fly-item.send .text {
+      color: #2979FF;
+    }
+
+    .fly-item.exchange .icon {
+      background: #FF1744;
+    }
+
+    .fly-item.exchange .text {
+      color: #FF1744;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="floating-hero">
+    <div class="content-wrapper">
+      <h1 class="float-title">Unify your<br> finances</h1>
+      <div class="card card-1">
+        <img src="https://picsum.photos/300/300?random=1" alt="Card 1">
+      </div>
+      <div class="card card-2">
+        <img src="https://picsum.photos/300/300?random=2" alt="Card 2">
+      </div>
+      <div class="card card-3">
+        <img src="https://picsum.photos/300/300?random=3" alt="Card 3">
+      </div>
+      <div class="card card-4">
+        <img src="https://picsum.photos/300/300?random=4" alt="Card 4">
+      </div>
+      <div class="card card-5">
+        <img src="https://picsum.photos/300/300?random=5" alt="Card 5">
+      </div>
+    </div>
+  </section>
+
+  <section class="fly-up-section">
+    <div class="fly-item add">
+      <div class="icon">+</div>
+      <div class="text">Add</div>
+    </div>
+    <div class="fly-item send">
+      <div class="icon">✈️</div>
+      <div class="text">Send</div>
+    </div>
+    <div class="fly-item exchange">
+      <div class="icon">⇄</div>
+      <div class="text">Exchange</div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Floating Cards
+    gsap.set(".card-1", { x: -window.innerWidth, y: -300, scale: 1.5 });
+    gsap.set(".card-2", { x: window.innerWidth, y: 300, scale: 1.5 });
+    gsap.set(".card-3", { x: 0, y: window.innerHeight, scale: 1.5 });
+    gsap.set(".card-4", { x: -window.innerWidth * 1.2, y: window.innerHeight * 0.5, scale: 1.5 });
+    gsap.set(".card-5", { x: window.innerWidth * 1.2, y: -window.innerHeight * 0.5, scale: 1.5 });
+    gsap.set(".big-title", { scale: 1.5 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".floating-hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        pin: true
+      }
+    });
+
+    tl.to(".card-1", { x: -10, y: -10, scale: 1, duration: 1 }, 0)
+      .to(".card-2", { x: 10, y: -10, scale: 1, duration: 1 }, 0)
+      .to(".card-3", { x: 0, y: 10, scale: 1, duration: 1 }, 0)
+      .to(".card-4", { x: -15, y: 15, scale: 1, duration: 1 }, 0)
+      .to(".card-5", { x: 15, y: 15, scale: 1, duration: 1 }, 0)
+      .to(".big-title", { scale: 0.5, duration: 1 }, 0);
+
+    // Stacking Fly-Up Animation
+    const flyTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".fly-up-section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        pin: true
+      }
+    });
+
+    gsap.utils.toArray(".fly-item").forEach((el, i) => {
+      flyTimeline.to(el, {
+        y: 0,
+        opacity: 1,
+        duration: 1
+      });
+    });
+  </script>
+</body>
+
+</html>
