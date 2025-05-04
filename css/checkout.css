@@ -1,0 +1,190 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  background: #181818;
+  color: white; /* 🟢 Thêm dòng này */
+  padding: 40px 20px;
+}
+
+.checkout-container {
+  color: white; /* 🟢 Thêm nếu body không nhận */
+}
+
+.checkout-container {
+  max-width: 600px;
+  margin: auto;
+  background: #222;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.05);
+  transition: all 0.4s ease;
+}
+
+.checkout-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+form .form-group {
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #111;
+  color: white;
+  font-size: 14px;
+  transition: border 0.3s ease, transform 0.2s ease;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: #aaa;
+  transform: scale(1.02);
+}
+
+form textarea {
+  resize: vertical;
+}
+
+form button {
+  font-family:  -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;;
+  background: #c0c0c0;
+  color: rgb(0, 0, 0);
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 25px;
+}
+
+form button:hover {
+  background: #fff;
+  color: #000;
+  transform: scale(1.03);
+}
+form button:active {
+  transform: scale(0.98);
+}
+
+#order-summary {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  font-family:  -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;;
+  background: #333;
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 280px;
+  animation: fadeInUp 0.5s ease;
+}
+
+.popup-content button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #8c8c8c;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.popup-content button:hover {
+  background: #fff;
+  color: #000;
+  transform: scale(1.03);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #111;
+  border: 2px solid #555;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  user-select: none;
+}
+
+.payment-option:hover {
+  border-color: white;
+}
+
+.payment-option input[type="radio"] {
+  display: none;
+}
+
+.payment-option img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.payment-option span {
+  color: white;
+  font-weight: 500;
+}
+
+.payment-option input[type="radio"]:checked + img + span {
+  color: #ffffff;
+}
+
+.payment-option input[type="radio"]:checked + img {
+  filter: drop-shadow(0 0 5px #ffffff);
+}

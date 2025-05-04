@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -14,7 +15,7 @@
     }
 
     h1 {
-      margin-top: 50px;
+      margin-top: 60px!important;
       text-align: center;
       margin: 40px 0 20px;
     }
@@ -59,6 +60,27 @@
       margin-top: 80px;
       font-size: 18px;
     }
+
+    .checkout-wrap {
+      max-width: 800px;
+      margin: 20px auto 60px;
+      text-align: right;
+    }
+
+    .checkout-wrap a.btn {
+      padding: 10px 20px;
+      font-weight: bold;
+      background: #8c8c8c;
+      color: black;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .checkout-wrap a.btn:hover {
+      background: white;
+      color: black;
+    }
   </style>
 </head>
 <body>
@@ -72,15 +94,33 @@
       </div>
       <ul class="nav-links" id="nav-menu">
         <li><a href="./index.html">Trang chủ</a></li>
-        <li><a href="#">Sản phẩm</a></li>
+        <li><a href="./orders.html">Đơn hàng</a></li>
         <li><a href="./cart.html">Giỏ hàng</a></li>
       </ul>
     </div>
   </nav>
-  <h1>🛒 Giỏ Hàng của Bạn</h1>
+
+  <h1>Giỏ Hàng của Bạn</h1>
   <div id="cart-container" style="max-width:800px;margin:30px auto;padding:20px;"></div>
+
+  <div class="checkout-wrap">
+    <a href="checkout.html" id="checkout-button" class="btn">Thanh toán</a>
+  </div>
+
+  <div id="loader" class="loader"></div>
 
   <script src="./js/product.js"></script>
   <script src="./js/cart.js"></script>
+  <script>
+    // Ẩn nút thanh toán nếu giỏ hàng trống
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const cartKey = user ? `cart_${user.email}` : null;
+    const cart = cartKey ? JSON.parse(localStorage.getItem(cartKey)) || [] : [];
+
+    const checkoutBtn = document.getElementById("checkout-button");
+    if (!cart.length) {
+      checkoutBtn.style.display = "none";
+    }
+  </script>
 </body>
 </html>

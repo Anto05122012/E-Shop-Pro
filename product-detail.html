@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -11,18 +10,26 @@
   <nav class="fade-navbar navbar">
     <div class="navbar-container">
       <a class="brand" href="#">E-Shop Pro</a>
-      <ul class="nav-links">
+      <div class="burger" id="burger-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-menu">
         <li><a href="./index.html">Trang chủ</a></li>
-        <li><a href="./product-list.html">Sản phẩm</a></li>
+        <li><a href="./orders.html">Đơn hàng</a></li>
         <li><a href="./cart.html">Giỏ hàng</a></li>
       </ul>
     </div>
   </nav>
-
   <main class="container py-5">
     <div id="product-detail" class="product-detail"></div>
   </main>
-
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("id");
+  </script>
+  <!-- Chỉ cần sử dụng các file script đã xử lý ở phần trước -->
   <script src="./js/product.js"></script>
   <script src="./js/product_detail-final.js"></script>
 </body>

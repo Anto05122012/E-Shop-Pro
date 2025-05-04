@@ -1,3 +1,4 @@
+// Dữ liệu sản phẩm
 const productData = [
   {
     id: "sp001",
@@ -105,11 +106,12 @@ const productData = [
   }
 ];
 
-// Chi tiết sản phẩm
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get("id");
+// Lấy thông tin sản phẩm từ URL
+// const urlParams = new URLSearchParams(window.location.search);
+// const productId = urlParams.get("id");
 const detailContainer = document.getElementById("product-detail");
 
+// Hàm render chi tiết sản phẩm
 function renderProductDetail(id) {
   const product = productData.find(p => p.id === id);
 
@@ -145,8 +147,14 @@ function renderProductDetail(id) {
   `;
 }
 
-renderProductDetail(productId);
+// Gọi hàm để render chi tiết sản phẩm
+if (productId) {
+  renderProductDetail(productId);
+} else {
+  detailContainer.innerHTML = "<p>Không tìm thấy sản phẩm (thiếu ID).</p>";
+}
+
+// Kiểm tra nếu productData chưa có trong localStorage thì thêm vào
 if (!localStorage.getItem("productData")) {
   localStorage.setItem("productData", JSON.stringify(productData));
 }
-

@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Lịch sử đơn hàng</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    body {
+      background: #181818;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .order-list {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .order-item {
+      background: #222;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+    }
+
+    .order-item h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .order-item ul {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    .order-item li {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .order-item .total {
+      font-weight: bold;
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+  <nav class="fade-navbar navbar">
+    <div class="navbar-container">
+      <a class="brand" href="#">E-Shop Pro</a>
+      <div class="burger" id="burger-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="./index.html">Trang chủ</a></li>
+        <li><a href="./orders.html">Đơn hàng</a></li>
+        <li><a href="./cart.html">Giỏ hàng</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <h1>Lịch sử đơn hàng</h1>
+  <div class="order-list" id="order-list"></div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const orderKey = user ? "orders_" + user.email : null;
+    const orderList = document.getElementById("order-list");
+
+    if (orderKey) {
+      const orders = JSON.parse(localStorage.getItem(orderKey)) || [];
+
+      if (!orders.length) {
+        orderList.innerHTML = "<p style='text-align:center;color:#aaa;'>Bạn chưa có đơn hàng nào.</p>";
+      } else {
+        orders.reverse().forEach((order, i) => {
+          const div = document.createElement("div");
+          div.className = "order-item";
+
+          const date = new Date(order.time).toLocaleString("vi-VN");
+
+          let html = "<h3>🧾 Đơn hàng #" + (orders.length - i) + "</h3>";
+          html += "<p><strong>Thời gian:</strong> " + date + "</p>";
+          html += "<ul>";
+          order.items.forEach(item => {
+            html += "<li>" + item.name + " x " + item.quantity + " - " + item.subtotal.toLocaleString() + "đ</li>";
+          });
+          html += "</ul>";
+          html += "<p class='total'>Tổng cộng: " + order.total.toLocaleString() + "đ</p>";
+
+          div.innerHTML = html;
+          orderList.appendChild(div);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
